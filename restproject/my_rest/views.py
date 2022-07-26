@@ -139,3 +139,11 @@ class ArticleViewSet(viewsets.ViewSet):
             serialize.save()
             return Response(serialize.data, status = status.HTTP_100_CONTINUE)
         return Response(serialize.error, status=status.HTTP_400_BAD_REQUEST)
+class ArticleGenericViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin,mixins.UpdateModelMixin):
+    serializer_class = ModelArticleSerializer
+    queryset = Article.objects.all()
+
+###
+class ArticleViewSet(viewsets.ModelViewSet):
+    serializer_class = ModelArticleSerializer
+    queryset = Article.objects.all()

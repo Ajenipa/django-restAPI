@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import article_list,article_detail,ArticleApiView,ArticleApiDetailView,GenericApiView,ArticleViewSet
+from .views import article_list,article_detail,ArticleApiView,ArticleApiDetailView,GenericApiView,ArticleViewSet,ArticleGenericViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('article',ArticleViewSet,basename='article')
+#router.register('article',ArticleViewSet,basename='article')
+router.register('article',ArticleGenericViewSet,basename='article') # FOR THE ARTICLE GENERIC VIEWSET
 urlpatterns = [
     #path('article/',article_list, name="article-list"),
     path('article/',ArticleApiView.as_view(), name="article-list"),
@@ -28,7 +29,8 @@ urlpatterns = [
     path('generic/article/',GenericApiView.as_view(), name="article-list"),
     path('generic/article/<int:id>/',GenericApiView.as_view(), name="article-detail"),
     path('viewset/',include(router.urls)),
-    path('viewset/<int:id>/',include(router.urls))
+    #path('viewset/<int:id>/',include(router.urls)),
+    path('genericviewset/',include(router.urls)),
     
 
 ]
